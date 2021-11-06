@@ -116,6 +116,14 @@ const Config = {
 
 
     /**
+     * @description if true datepicker render inline
+     * @type boolean
+     * @default false
+     */
+    'rtl': false,
+
+
+    /**
      * @description If set true datepicker init with input value date, use data-date property when you want set inline datepicker initial value
      * @type boolean
      * @default true

@@ -555,6 +555,13 @@ var Config = {
   'inline': false,
 
   /**
+   * @description if true datepicker render inline
+   * @type boolean
+   * @default false
+   */
+  'rtl': false,
+
+  /**
    * @description If set true datepicker init with input value date, use data-date property when you want set inline datepicker initial value
    * @type boolean
    * @default true
@@ -2839,18 +2846,22 @@ var View = function () {
             if (this.model.options.position === 'auto') {
 
                 var inputTopRelativeToWindow = inputPosition.top - $(window).scrollTop();
-                var containerTop = 0;
+                var containerPosTop = 0;
                 var containerHeight = $('.datepicker-plot-area', this.$container).outerHeight();
+                var containerWidth = $('.datepicker-plot-area', this.$container).outerWidth();
 
                 if (inputTopRelativeToWindow < $(window).height() / 2) {
-                    containerTop = inputSize.height;
+                    containerPosTop = inputSize.height;
                 } else {
-                    containerTop = -containerHeight;
+                    containerPosTop = -containerHeight;
                 }
 
-                this.$container.css({
+                if (this.model.options.rtl) this.$container.css({
+                    right: containerWidth,
+                    top: containerPosTop + 'px'
+                });else this.$container.css({
                     left: 0,
-                    top: containerTop + 'px'
+                    top: containerPosTop + 'px'
                 });
             } else {
                 this.$container.css({

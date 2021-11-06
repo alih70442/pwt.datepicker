@@ -87,22 +87,36 @@ class View {
         if (this.model.options.position === 'auto') {
 
             let inputTopRelativeToWindow = inputPosition.top - $(window).scrollTop();
-            let containerTop = 0;
+            let containerPosTop = 0;
             let containerHeight = $(
                 '.datepicker-plot-area',
                 this.$container
             ).outerHeight();
+            let containerWidth = $(
+                '.datepicker-plot-area',
+                this.$container
+            ).outerWidth();
 
             if (inputTopRelativeToWindow < $(window).height() / 2) {
-                containerTop = inputSize.height;
+                containerPosTop = inputSize.height;
             } else {
-                containerTop = -containerHeight;
+                containerPosTop = -containerHeight;
             }
 
-            this.$container.css({
-                left: 0,
-                top: containerTop + 'px'
-            });
+            if (this.model.options.rtl)
+
+                this.$container.css({
+                    right: containerWidth,
+                    top: containerPosTop + 'px'
+                });
+
+            else
+
+                this.$container.css({
+                    left: 0,
+                    top: containerPosTop + 'px'
+                });
+
         } else {
             this.$container.css({
                 left: (this.model.options.position[1] + inputPosition.left) + 'px',
