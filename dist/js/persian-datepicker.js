@@ -2847,22 +2847,27 @@ var View = function () {
 
                 var inputTopRelativeToWindow = inputPosition.top - $(window).scrollTop();
                 var containerPosTop = 0;
-                var containerHeight = $('.datepicker-plot-area', this.$container).outerHeight();
                 var containerWidth = $('.datepicker-plot-area', this.$container).outerWidth();
+                var containerHeight = $('.datepicker-plot-area', this.$container).outerHeight();
 
-                if (inputTopRelativeToWindow < $(window).height() / 2) {
-                    containerPosTop = inputSize.height;
+                if (inputTopRelativeToWindow < $(window).height() / 2) containerPosTop = inputSize.height;else containerPosTop = -containerHeight;
+
+                if ($(window).width() < 576) {
+
+                    this.$container.css({
+                        left: 'calc(50% - ' + containerWidth / 2 + 'px)',
+                        top: containerPosTop + 'px'
+                    });
                 } else {
-                    containerPosTop = -containerHeight;
-                }
 
-                if (this.model.options.rtl) this.$container.css({
-                    right: containerWidth,
-                    top: containerPosTop + 'px'
-                });else this.$container.css({
-                    left: 0,
-                    top: containerPosTop + 'px'
-                });
+                    if (this.model.options.rtl) this.$container.css({
+                        right: containerWidth,
+                        top: containerPosTop + 'px'
+                    });else this.$container.css({
+                        left: 0,
+                        top: containerPosTop + 'px'
+                    });
+                }
             } else {
                 this.$container.css({
                     left: this.model.options.position[1] + inputPosition.left + 'px',
